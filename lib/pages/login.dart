@@ -58,16 +58,16 @@ class _LoginPageState extends State<LoginPage> {
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
-        print("No user found fot this email");
+        print("No user found for this email");
       }
     }
-
     return user;
   }
 
-  //creating the textfield controller
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -81,15 +81,18 @@ class _LoginPageState extends State<LoginPage> {
         end: Alignment.bottomCenter,
       )),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _wikiLogo(),
-            _emailField(),
-            _passwordField(),
-            _forgetPassText(),
-            _loginButton(),
-            _signUpText(),
-          ],
+        child: Form(
+          key: _key,
+          child: Column(
+            children: [
+              _wikiLogo(),
+              _emailField(),
+              _passwordField(),
+              _forgetPassText(),
+              _loginButton(),
+              _signUpText(),
+            ],
+          ),
         ),
       ),
     );
@@ -112,8 +115,9 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
       child: Column(
         children: [
-          TextField(
-            controller: _emailController,
+          TextFormField(
+            controller: emailController,
+            validator: validateEmail,
             style: const TextStyle(
               fontSize: 18.0,
               color: Color(0xffe5dcf2),
@@ -142,8 +146,9 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
       child: Column(
         children: [
-          TextField(
-            controller: _passwordController,
+          TextFormField(
+            controller: passwordController,
+            validator: validatePassword,
             style: const TextStyle(
               fontSize: 18.0,
               color: Color(0xffe5dcf2),
@@ -208,11 +213,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             onPressed: () async {
+              if (_key.currentState!.validate()) {
+                await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: emailController.text,
+                    password: passwordController.text);
+              }
               User? user = await loginUsingEmailPassword(
-                  email: _emailController.text,
-                  password: _passwordController.text,
+                  email: emailController.text,
+                  password: passwordController.text,
                   context: context);
-              print(user);
               if (user != null) {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const ProfileScreen()));
@@ -226,19 +235,52 @@ class _LoginPageState extends State<LoginPage> {
 
   _signUpText() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(80.0, 40.0, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(70.0, 80.0, 0.0, 0.0),
       child: Row(
-        children: const [
-          Text(
-            'Don\'t have an account? Sign Up',
-            style: TextStyle(
-              color: Color(0xffe5dcf2),
-              fontSize: 15.0,
-              letterSpacing: 1.5,
+        children: [
+          RichText(
+            text: const TextSpan(
+              text: 'Don\'t have an account?',
+              style: TextStyle(
+                fontSize: 18.0,
+                letterSpacing: 1.4,
+              ),
+              children: [
+                TextSpan(
+                  text: ' Create',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    letterSpacing: 1.4,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
       ),
     );
   }
+}
+
+// Validate Email and Password
+String? validateEmail(String? formEmail) {
+  if (formEmail == null || formEmail.isEmpty) {
+    return 'Email address is required';
+  }
+
+  String pattern = r'\w+@\w+\.\w+';
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(formEmail)) {
+    return 'Invalid E-mail Format';
+  }
+
+  return null;
+}
+
+String? validatePassword(String? formPassword) {
+  if (formPassword == null || formPassword.isEmpty) {
+    return 'Password is required';
+  }
+  return null;
 }
