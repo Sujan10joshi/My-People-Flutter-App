@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "559443957141",
+    "project_id": "wiki-login-536e5",
+    "storage_bucket": "wiki-login-536e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:559443957141:android:6b78026b028e241a63929c",
+        "android_client_info": {
+          "package_name": "com.example.wikiandfact"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "559443957141-0qlq0ukn1uk99kt424852m7o6iu82n0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCikvy2_D6dKDamHiH7N2n9HN33xDn28uE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "559443957141-0qlq0ukn1uk99kt424852m7o6iu82n0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
