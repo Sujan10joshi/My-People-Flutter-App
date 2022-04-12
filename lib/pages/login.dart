@@ -81,6 +81,7 @@ class _LoginPageState extends State<LoginPage> {
         end: Alignment.bottomCenter,
       )),
       child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Form(
           key: _key,
           child: Column(
