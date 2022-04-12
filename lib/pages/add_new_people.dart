@@ -1,7 +1,5 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 
 class AddNewPeople extends StatefulWidget {
   const AddNewPeople({Key? key}) : super(key: key);
@@ -49,8 +47,10 @@ class _AddNewPeopleState extends State<AddNewPeople> {
                 _newEmailField(),
                 _newContactNumberField(),
                 _relationField(),
-                _nextField(),
-                // _imageFromGallery(),
+                _pickImageButton(),
+                _bioText(),
+                _bioTextField(),
+                _addButton(),
               ],
             ),
           ),
@@ -175,9 +175,51 @@ class _AddNewPeopleState extends State<AddNewPeople> {
     );
   }
 
-  _nextField() {
+  _pickImageButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+      child: Row(
+        children: [
+          ElevatedButton(
+            child: const Text(
+              'Image',
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(0.0, 45.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            onPressed: () {},
+          ),
+        ],
+      ),
+    );
+  }
+
+  _bioText() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+      child: Row(
+        children: const [
+          Text(
+            'Bio:',
+            style: TextStyle(
+              fontSize: 25.0,
+              color: Color(0xffe5dcf2),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _bioTextField() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       child: Column(
         children: [
           TextFormField(
@@ -187,17 +229,51 @@ class _AddNewPeopleState extends State<AddNewPeople> {
             ),
             keyboardType: TextInputType.text,
             decoration: const InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xffe5dcf2)),
-                ),
-                hintText: "Relation",
-                hintStyle: TextStyle(
-                  color: Color(0xffe5dcf2),
-                ),
-                prefixIcon: Icon(
-                  Icons.mail,
-                  color: Color(0xffe5dcf2),
-                )),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffe5dcf2)),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _addButton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ElevatedButton(
+            child: const Text(
+              'Add',
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(0.0, 45.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            onPressed: () {},
+          ),
+          ElevatedButton(
+            child: const Text(
+              'Reset',
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(0.0, 45.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            onPressed: () {},
           ),
         ],
       ),
