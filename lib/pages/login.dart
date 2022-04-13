@@ -72,28 +72,30 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-        colors: [Color(0xff050A30), Color(0xff381AB0)],
-        begin: Alignment.center,
-        end: Alignment.bottomCenter,
-      )),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Form(
-          key: _key,
-          child: Column(
-            children: [
-              _wikiLogo(),
-              _emailField(),
-              _passwordField(),
-              _forgetPassText(),
-              _loginButton(),
-              _signUpText(),
-            ],
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+          colors: [Color(0xff050A30), Color(0xff381AB0)],
+          begin: Alignment.center,
+          end: Alignment.bottomCenter,
+        )),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Form(
+            key: _key,
+            child: Column(
+              children: [
+                _wikiLogo(),
+                _emailField(),
+                _passwordField(),
+                _forgetPassText(),
+                _loginButton(),
+                _signUpText(),
+              ],
+            ),
           ),
         ),
       ),

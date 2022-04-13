@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wikiandfact/pages/login.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _SignupPageState extends State<SignupPage> {
                 _userEmailField(),
                 _userContactNumberField(),
                 _registerButton(),
+                _logInText(),
               ],
             ),
           ),
@@ -54,12 +56,12 @@ class _SignupPageState extends State<SignupPage> {
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xffe5dcf2)),
                 ),
-                hintText: "Name",
+                hintText: "Full Name",
                 hintStyle: TextStyle(
                   color: Color(0xffe5dcf2),
                 ),
                 prefixIcon: Icon(
-                  Icons.mail,
+                  Icons.person,
                   color: Color(0xffe5dcf2),
                 )),
           ),
@@ -117,7 +119,7 @@ class _SignupPageState extends State<SignupPage> {
                   color: Color(0xffe5dcf2),
                 ),
                 prefixIcon: Icon(
-                  Icons.mail,
+                  Icons.phone,
                   color: Color(0xffe5dcf2),
                 )),
           ),
@@ -128,7 +130,7 @@ class _SignupPageState extends State<SignupPage> {
 
   _registerButton() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 0.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -146,6 +148,39 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
             onPressed: () {},
+          ),
+        ],
+      ),
+    );
+  }
+
+  _logInText() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(55.0, 10.0, 0.0, 0.0),
+      child: Row(
+        children: [
+          const Text(
+            'Already have an account?',
+            style: TextStyle(
+              fontSize: 18.0,
+              letterSpacing: 1.4,
+              color: Color(0xffe5dcf2),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()));
+            },
+            child: const Text(
+              'Login',
+              style: TextStyle(
+                fontSize: 18.0,
+                letterSpacing: 1.4,
+                fontWeight: FontWeight.bold,
+                color: Color(0xffe5dcf2),
+              ),
+            ),
           ),
         ],
       ),

@@ -81,7 +81,7 @@ class _AddNewPeopleState extends State<AddNewPeople> {
                   color: Color(0xffe5dcf2),
                 ),
                 prefixIcon: Icon(
-                  Icons.mail,
+                  Icons.person_add_alt,
                   color: Color(0xffe5dcf2),
                 )),
           ),
