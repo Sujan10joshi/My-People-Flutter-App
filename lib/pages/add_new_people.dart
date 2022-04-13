@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-// import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddNewPeople extends StatefulWidget {
   const AddNewPeople({Key? key}) : super(key: key);
@@ -9,18 +11,18 @@ class AddNewPeople extends StatefulWidget {
 }
 
 class _AddNewPeopleState extends State<AddNewPeople> {
-  // File? image;
+  File? _image;
 
-  // Future pickImage() async {
-  //   try {
-  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //     if(image == null) return;
-  //     final imageTemp = File(image.path);
-  //     setState(() {
-  //       this.image = imageTemp;
-  //     });
-  //   }
-  // }
+  Future getImage(ImageSource source) async {
+    final image = await ImagePicker().pickImage(source: source);
+    if (image == null) return;
+
+    final imageTemporary = File(image.path);
+
+    setState(() {
+      _image = imageTemporary;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,8 +195,24 @@ class _AddNewPeopleState extends State<AddNewPeople> {
                 borderRadius: BorderRadius.circular(15.0),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              getImage(ImageSource.gallery);
+            },
           ),
+          const SizedBox(width: 40.0),
+          _image == null
+              ? const Text(
+                  'There is no image',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: Color(0xffe5dcf2),
+                  ),
+                )
+              : Image.file(
+                  _image!,
+                  height: 100.0,
+                  width: 100.0,
+                ),
         ],
       ),
     );

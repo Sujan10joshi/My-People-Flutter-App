@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wikiandfact/pages/profile_screen.dart';
+import 'package:wikiandfact/pages/signup.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
-        print("No user found for this email");
+        const Text("No user found for this email");
       }
     }
     return user;
@@ -239,23 +240,26 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.fromLTRB(70.0, 80.0, 0.0, 0.0),
       child: Row(
         children: [
-          RichText(
-            text: const TextSpan(
-              text: 'Don\'t have an account?',
+          const Text(
+            'Don\'t have an account?',
+            style: TextStyle(
+              fontSize: 18.0,
+              letterSpacing: 1.4,
+              color: Color(0xffe5dcf2),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SignupPage()));
+            },
+            child: const Text(
+              'Create',
               style: TextStyle(
                 fontSize: 18.0,
-                letterSpacing: 1.4,
+                fontWeight: FontWeight.bold,
+                color: Color(0xffe5dcf2),
               ),
-              children: [
-                TextSpan(
-                  text: ' Create',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    letterSpacing: 1.4,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
             ),
           ),
         ],
